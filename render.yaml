@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: taskloom
+    env: docker
+    region: singapore
+    plan: starter
+    healthCheckPath: /health
+    numInstances: 1
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: JWT_SECRET
+        generateValue: true
+      # Default to local SQLite - For Turso Cloud, replace with your Turso URL
+      - key: TURSO_URL
+        value: file:/data/taskloom.db
+      # For Turso Cloud, set your auth token
+      - key: TURSO_TOKEN
+        value: ""
+        # To use Turso Cloud, uncomment and set this as a secret
+        # sync: false
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1 

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  taskloom:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      # These environment variables can be overridden
+      - PORT=8080
+      # For local SQLite database stored in the volume
+      - TURSO_URL=file:/data/taskloom.db
+      - TURSO_TOKEN=
+      # Use a secure secret in production
+      - JWT_SECRET=your-secret-key-for-jwt-development-only
+    volumes:
+      - taskloom_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  taskloom_data:
+    driver: local 

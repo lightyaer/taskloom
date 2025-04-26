@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+/taskloom
+/taskloom.db*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Editor files
+.idea
+.vscode
+
+# Temporary files
+/tmp
+*.tmp
+*.log
+
+# OS specific
+.DS_Store
+Thumbs.db 
